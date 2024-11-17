@@ -20,7 +20,18 @@
         const botao = document.querySelector("#addButton");
         const lista = document.querySelector("#listaTarefas");
 
-        botao.addEventListener
+        botao.addEventListener("click", () => {
+            const textoTarefa = input.value.trim();
+
+            if(textoTarefa !== ""){
+                const novaTarefa = document.createElement("li");
+                novaTarefa.textContent = textoTarefa;
+                lista.appendChild(novaTarefa);
+                input.value = "";
+            }else{
+                alert("Por favor,digite uma tarefa");
+            }
+        });
     </script>
 </body>
 </html>
