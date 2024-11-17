@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.addTarefas{
+display: flex;
+
+}
+.addButton {
+    padding-left: 25px;
+}
