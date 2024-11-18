@@ -5,33 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarefudo</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&family=Sriracha&display=swap" rel="stylesheet">
     
 </head>
 <body>
+
+    <div class="titulo">
+        <h1>TAREFUDO</h1>
+        <p>Organizador de tarefas</p>
+    </div>
+
     <div class="addTarefas">
         <input type="text" id="tarefaInput" placeholder="Digite sua tarefa aqui">
+
         <div class="addButton" id="addButton">
-            <button>adicionar tarefa</button>
+            <button id="adicionarBtn">Adicionar Tarefa</button>
         </div>
+
     </div>
-    <ul id="listaTarefas"></ul>
+
+        <ul id="listaTarefas">
+           
+        </ul>
+   
     <script>
-        const input = document.querySelector("#tarefaInput");
-        const botao = document.querySelector("#addButton");
-        const lista = document.querySelector("#listaTarefas");
+       const input = document.querySelector("#tarefaInput");
+const botao = document.querySelector("#addButton");
+const lista = document.querySelector("#listaTarefas");
 
-        botao.addEventListener("click", () => {
-            const textoTarefa = input.value.trim();
+botao.addEventListener("click", () => {
+    const textoTarefa = input.value.trim();
 
-            if(textoTarefa !== ""){
-                const novaTarefa = document.createElement("li");
-                novaTarefa.textContent = textoTarefa;
-                lista.appendChild(novaTarefa);
-                input.value = "";
-            }else{
-                alert("Por favor,digite uma tarefa");
+    if (textoTarefa !== "") {
+        const novaTarefa = document.createElement("li");
+        const texto = document.createElement("span");
+        texto.textContent = textoTarefa;
+
+        const botaoEditar = document.createElement("button");
+        botaoEditar.textContent = "🖋️";
+
+        const botaoExcluir = document.createElement("button");
+        botaoExcluir.textContent = "❌";
+
+        botaoEditar.addEventListener("click", () => {
+            if (botaoEditar.textContent === "🖋️") {
+                const inputEdicao = document.createElement("input");
+                inputEdicao.type = "text";
+                inputEdicao.value = texto.textContent;
+                inputEdicao.style.flexGrow = "1";
+                inputEdicao.style.marginRight = "35px";
+                novaTarefa.replaceChild(inputEdicao, texto);
+                botaoEditar.textContent = "💾";
+            } else {
+                texto.textContent = novaTarefa.querySelector("input").value;
+                novaTarefa.replaceChild(texto, novaTarefa.querySelector("input"));
+                botaoEditar.textContent = "🖋️";
             }
         });
+
+        botaoExcluir.addEventListener("click", () => {
+            lista.removeChild(novaTarefa);
+        });
+
+        novaTarefa.appendChild(texto);
+        novaTarefa.appendChild(botaoEditar);
+        novaTarefa.appendChild(botaoExcluir);
+        lista.appendChild(novaTarefa);
+        input.value = "";
+    } else {
+        alert("Por favor, digite uma tarefa");
+    }
+});
+
+
     </script>
 </body>
 </html>
